@@ -8,6 +8,7 @@
 #include "definitions.hpp"
 #include "PointReader.h"
 
+#include <atomic>
 #include <string>
 #include <vector>
 #include <cstdint>
@@ -33,6 +34,7 @@ private:
 	AABB calculateAABB();
 	AABB calculateAABB(vector<Point> pointVec);
 	void generatePage(string name);
+  std::atomic_int  status;
 
 public:
 	float spacing;
@@ -62,6 +64,7 @@ public:
 		
 	void convert();
 	void convert(vector<Point> &pointVec);
+  int getStatus();
 
 };
 

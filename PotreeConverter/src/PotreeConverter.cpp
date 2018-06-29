@@ -627,4 +627,7 @@ void PotreeConverter::convert(vector<Point> &pointVec){
 	cout << "duration: " << (duration / 1000.0f) << "s" << endl;
 }
 
+int PotreeConverter::getStatus(){
+  return status;  
+}
 }
