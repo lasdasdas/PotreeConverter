@@ -570,9 +570,11 @@ void PotreeConverter::convert(vector<Point> &pointVec){
 
     writer->add(p);
 
-    if((pointsProcessed % (1'000'000)) == 0){
+    if((pointsProcessed % (100'000)) == 0){
       writer->processStore();
       writer->waitUntilProcessed();
+
+      setStatus(static_cast<int>((100*pointsProcessed / pointVec.size() ) ) );
 
       auto end = high_resolution_clock::now();
       long long duration = duration_cast<milliseconds>(end-start).count();
@@ -585,6 +587,7 @@ void PotreeConverter::convert(vector<Point> &pointVec){
       ssMessage << pointsProcessed << " points processed; ";
       ssMessage << writer->numAccepted << " points written; ";
       ssMessage << seconds << " seconds passed";
+
 
       cout << ssMessage.str() << endl;
     }
@@ -615,6 +618,7 @@ void PotreeConverter::convert(vector<Point> &pointVec){
 
 	float percent = (float)writer->numAccepted / (float)pointsProcessed;
 	percent = percent * 100;
+  setStatus(static_cast<int>(percent));
 
 	auto end = high_resolution_clock::now();
 	long long duration = duration_cast<milliseconds>(end-start).count();
@@ -628,6 +632,9 @@ void PotreeConverter::convert(vector<Point> &pointVec){
 }
 
 int PotreeConverter::getStatus(){
-  return status;  
+  return status;
+}
+void PotreeConverter::setStatus(int status_){
+  status = status_;
 }
 }

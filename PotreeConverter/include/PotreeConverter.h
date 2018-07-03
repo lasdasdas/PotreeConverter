@@ -20,6 +20,7 @@ namespace Potree{
 
 class SparseGrid;
 
+
 class PotreeConverter{
 
 private:
@@ -34,7 +35,7 @@ private:
 	AABB calculateAABB();
 	AABB calculateAABB(vector<Point> pointVec);
 	void generatePage(string name);
-  std::atomic_int  status;
+  std::atomic_int status = -10;
 
 public:
 	float spacing;
@@ -61,10 +62,11 @@ public:
     string executablePath;
 
     PotreeConverter(string executablePath, string workDir, vector<string> sources);
-		
+
 	void convert();
 	void convert(vector<Point> &pointVec);
   int getStatus();
+  void setStatus(int status_);
 
 };
 
